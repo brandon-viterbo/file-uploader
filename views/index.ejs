@@ -3,11 +3,14 @@
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <%- include('navbar', { user: user}) %>
+    <%- include('navbar') %>
     <header>
       <h1> <%= title %> </h1>
     </header>
     <main>
+      <% if (locals.user) { %>
+        <p>Welcome back <%= user.name %>!</p>
+      <% } %>
     </main>
   </body>
 </html>

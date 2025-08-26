@@ -1,3 +1,3 @@
 exports.getLogin = async (req, res) => {
-  res.render("login", { title: "Login", user: false });
+  res.render("login", { title: "Login", user: req.user });
 };

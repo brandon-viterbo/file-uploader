@@ -8,12 +8,16 @@
     { href: "logout", text: "Logout" }
   ]
   const userLinks = ["upload", "files", "logout"]
+  const beforeLoginLinks = ["signup", "login"]
 %>
 
 <nav>
   <ul>
     <% for (let i = 0; i < links.length; i++) { %>
-      <% if (!user && userLinks.includes(links[i].href)) { %>
+      <% if (
+        !locals.user && userLinks.includes(links[i].href)
+        || user && beforeLoginLinks.includes(links[i].href)  
+      ) { %>
       <% } else { %>
         <li>
           <a href="<%= links[i].href %>">
