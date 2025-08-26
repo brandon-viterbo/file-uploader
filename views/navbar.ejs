@@ -1,0 +1,26 @@
+<%
+  const links = [
+    { href: "/", text: "Home" },
+    { href: "signup", text: "Sign Up" }, 
+    { href: "login", text: "Login" },
+    { href: "upload", text: "Upload" },
+    { href: "files", text: "My Files" },
+    { href: "logout", text: "Logout" }
+  ]
+  const userLinks = ["upload", "files", "logout"]
+%>
+
+<nav>
+  <ul>
+    <% for (let i = 0; i < links.length; i++) { %>
+      <% if (!user && userLinks.includes(links[i].href)) { %>
+      <% } else { %>
+        <li>
+          <a href="<%= links[i].href %>">
+            <span><%= links[i].text %></span>
+          </a>
+        </li>
+      <% } %>
+    <% } %>
+  </ul>
+</nav>

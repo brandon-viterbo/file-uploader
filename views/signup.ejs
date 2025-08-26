@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <%- include('navbar', {user: user}) %>
+  <header>
+    <h1><%= title %></h1>
+  </header>
+  <form action="signup/addUser" method="post">
+    <h2>Your Info</h2>
+    <section>
+      <p>
+        <label for="email">
+          <span>Email: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="email" id="email" name="email">
+      </p>
+      <p>
+        <label for="username">
+          <span>Username: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="text" id="username" name="username">
+      </p>
+      <p>
+        <label for="password">
+          <span>Password: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="password" id="password" name="password">
+      </p>
+      <p>
+        <label for="confirmPassword">
+          <span>Confirm Password: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+      </p>
+    </section>
+    <section>
+      <p>
+        <button type="submit">Create Account</button>
+      </p>
+    </section>
+  </form>
+</html>
