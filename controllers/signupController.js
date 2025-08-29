@@ -4,7 +4,11 @@ const { PrismaClient } = require("../generate/prisma");
 const db = new PrismaClient();
 
 exports.getSignup = async (req, res) => {
-  res.render("signup", { title: "Sign Up", user: req.user });
+  if (req.user) {
+    res.redirect("/");
+  } else {
+    res.render("signup", { title: "Sign Up", user: req.user });
+  }
 };
 
 exports.addUser = async (req, res, next) => {
