@@ -7,6 +7,7 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../generate/prisma"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -26,4 +27,15 @@ model User {
   email   String   @unique
   name    String   @unique   
   password String
+  folders Folder[]
+}
+
+model Folder {
+  id      Int      @id @default(autoincrement())
+  userId  Int
+  user    User     @relation(fields: [userId], references: [id])
+  name    String
+  parentId Int?
+  parent  Folder?  @relation("ParentChildren", fields: [parentId], references: [id])
+  children Folder[] @relation("ParentChildren")
 }

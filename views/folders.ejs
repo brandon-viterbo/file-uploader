@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <%- include('navbar') %>
+  <header>
+    <h1><%= title %></h1>
+  </header>
+  <form action="folders/addFolder" method="post">
+    <h2>Your Info</h2>
+    <section>
+      <p>
+        <label for="newFolder">
+          <span>New Folder in this Directory: </span>
+          <strong><span aria-label="required">*</span></strong>
+        </label>
+        <input type="text" id="newFolder" name="newFolder" required>
+      </p>
+    </section>
+    <section>
+      <p>
+        <button type="upload">Make New Folder</button>
+      </p>
+    </section>
+  </form>
+  <div>
+    <% if (folders.length === 0) { %>
+      <p>No subfolders!</p>
+    <% } else { %>
+      <% for (let i = 0; i < folders.length; i++) { %>
+        <li>
+          <a href="folders/<%= folders[i].name %>">
+            <span><%= folders[i].name %></span>
+          </a>
+        </li>
+      <% } %>
+    <% } %>
+  </div>
+</html>

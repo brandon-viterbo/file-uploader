@@ -15,6 +15,7 @@ const indexRouter = require("./routes/indexRouter");
 const signupRouter = require("./routes/signupRouter");
 const loginRouter = require("./routes/loginRouter");
 const uploadRouter = require("./routes/uploadRouter");
+const foldersRouter = require("./routes/foldersRouter")
 
 const PORT = parseInt(process.env.PORT);
 const app = express();
@@ -53,7 +54,7 @@ passport.use(
       const match = await bcrypt.compare(password, user.password);
 
       if (!user) {
-        return done(null, false, { message: "Incorrect email" });
+        return done(null, false, { message: "User does not exist" });
       }
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
@@ -82,6 +83,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+app.use("/folders", foldersRouter)
 app.use("/upload", uploadRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
