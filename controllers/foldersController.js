@@ -19,7 +19,7 @@ const findSubfolder = async (req) => {
     folder = await db.folder.findFirstOrThrow({
       select: {
         id: true,
-        children: true,
+        children: { include: { children: true } },
         name: true,
       },
       where: whereParam,
@@ -35,6 +35,7 @@ exports.getFolders = async (req, res) => {
       relationLoadStrategy: "join",
       include: {
         folders: {
+          include: { children: true },
           where: {
             parentId: null,
           },
@@ -59,6 +60,7 @@ exports.getSubfolders = async (req, res) => {
   const folder = await findSubfolder(req);
   if (req.user && folder) {
     res.render("folders", {
+      id: folder.id,
       title: folder.name,
       user: req.user,
       folders: folder.children,
@@ -84,3 +86,8 @@ exports.addFolder = async (req, res, next) => {
 
   res.redirect(`/folders/${req.params.subfolders.join("/")}`);
 };
+
+exports.deleteFolder = async (req, res, next) => {
+  console.log(req.params.folderId)
+  res.redirect("/")
+}

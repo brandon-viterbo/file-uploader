@@ -24,8 +24,13 @@
     </section>
   </form>
   <div>
-    <% if (!folders) { %>
-      <p>No subfolders!</p>
+    <% if (folders.length === 0) { %>
+      <form action="/folders/delete/<%= id %>" method="post">
+          <p>
+            <button type="upload">Delete This Folder</button>
+          </p>
+        </section>
+      </form>
     <% } else { %>
       <% for (let i = 0; i < folders.length; i++) { %>
         <li>

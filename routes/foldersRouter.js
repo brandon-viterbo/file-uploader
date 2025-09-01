@@ -39,4 +39,7 @@ foldersRouter.post(
     foldersController.addFolder(req, res, next);
   },
 );
+
+foldersRouter.post("/delete/:folderId", foldersController.deleteFolder)
+
 module.exports = foldersRouter;
