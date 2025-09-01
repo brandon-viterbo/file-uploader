@@ -6,8 +6,8 @@
   <header>
     <h1><%= title %></h1>
   </header>
-  <form action="folders/addFolder" method="post">
-    <h2>Your Info</h2>
+  <form action="<%= postUrl %>/addFolder" method="post">
+    <h2>Add new folder here</h2>
     <section>
       <p>
         <label for="newFolder">
@@ -24,12 +24,12 @@
     </section>
   </form>
   <div>
-    <% if (folders.length === 0) { %>
+    <% if (!folders) { %>
       <p>No subfolders!</p>
     <% } else { %>
       <% for (let i = 0; i < folders.length; i++) { %>
         <li>
-          <a href="folders/<%= folders[i].name %>">
+          <a href="<%= postUrl %>/<%= folders[i].id %>">
             <span><%= folders[i].name %></span>
           </a>
         </li>
