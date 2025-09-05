@@ -88,6 +88,12 @@ exports.addFolder = async (req, res, next) => {
 };
 
 exports.deleteFolder = async (req, res, next) => {
-  console.log(req.params.folderId)
+  await db.folder.delete({
+    where: {
+      id: parseInt(req.params.folderId),
+      children: { none: {} },
+      userId: parseInt(req.user.id)
+    }
+  })
   res.redirect("/")
 }
