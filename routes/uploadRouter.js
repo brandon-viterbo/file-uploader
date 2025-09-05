@@ -4,10 +4,7 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const uploadRouter = new Router();
 
-uploadRouter.get("/", uploadController.getUploads);
-uploadRouter.post("/", upload.single("image"), (req, res) => {
-  console.log(req.body.image);
-  res.redirect("/");
-});
+uploadRouter.post("/:folderId", upload.single("image"), uploadController.uplaodFile
+);
 
 module.exports = uploadRouter;

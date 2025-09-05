@@ -1,7 +1,4 @@
-exports.getUploads = async (req, res) => {
-  if (req.user) {
-    res.render("upload", { title: "Upload Image", user: req.user });
-  } else {
-    res.redirect("login");
-  }
-};
+exports.uplaodFile = async (req, res, next) => {
+  console.log(`Uploading image ${req.body.image} to folder ${req.params.folderId} owned by user ${req.user.id}`)
+  res.redirect("/");
+}

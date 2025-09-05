@@ -56,5 +56,30 @@
         </li>
       <% } %>
     <% } %>
+
+    <% if (locals.id) { %>
+      <form action="/upload/<%= id %>" method="post">
+    <% } else { %>
+      <form action="/upload/root" method="post">
+    <% } %>
+      <h2>New Image</h2>
+      <section>
+        <p>
+          <label for="image">
+            <span>Select image from my folders: </span>
+            <strong><span aria-label="required">*</span></strong>
+          </label>
+          <input type="file" id="image" name="image" 
+            accept=".png, .jpeg, .jpg, .gif"
+            enctype="multipart/form-data"
+            required>
+        </p>
+      </section>
+      <section>
+        <p>
+          <button type="upload">Upload</button>
+        </p>
+      </section>
+    </form>
   </div>
 </html>
