@@ -92,8 +92,37 @@ exports.deleteFolder = async (req, res, next) => {
     where: {
       id: parseInt(req.params.folderId),
       children: { none: {} },
-      userId: parseInt(req.user.id)
-    }
-  })
-  res.redirect("/")
-}
+      userId: parseInt(req.user.id),
+    },
+  });
+  res.redirect("/");
+};
+
+exports.renameFolder = async (req, res, next) => {
+  try {
+    await db.folder.update({
+      where: {
+        id: parseInt(req.params.folderId),
+        userId: parseInt(req.user.id),
+        OR: [
+          {
+            parent: { children: { none: { name: req.body.newName } } },
+          },
+          {
+            parent: null,
+            user: {
+              folders: { none: { parentId: null, name: req.body.newName } },
+            },
+          },
+        ],
+      },
+      data: {
+        name: req.body.newName,
+      },
+    });
+  } catch (err) {
+    res.redirect("/");
+  }
+
+  res.redirect("/");
+};

@@ -40,6 +40,8 @@ foldersRouter.post(
   },
 );
 
-foldersRouter.post("/delete/:folderId", foldersController.deleteFolder)
+foldersRouter.post("/delete/:folderId", foldersController.deleteFolder);
+
+foldersRouter.post("/update/:folderId/", foldersController.renameFolder);
 
 module.exports = foldersRouter;

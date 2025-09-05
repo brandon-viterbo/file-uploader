@@ -24,12 +24,28 @@
     </section>
   </form>
   <div>
+    <% if (locals.id) { %>
+      <form action="/folders/update/<%= id %>" method="post">
+        <h2>Rename this Folder</h2>
+        <section>
+          <p>
+            <label for="newName">
+              <span>Rename as: </span>
+              <strong><span aria-label="required">*</span></strong>
+            </label>
+            <input type="text" id="newName" name="newName" required>
+          </p>
+        </section>
+        <p>
+          <button type="upload">Rename this Folder</button>
+        </p>
+      </form>
+    <% } %>
     <% if (folders.length === 0) { %>
       <form action="/folders/delete/<%= id %>" method="post">
           <p>
             <button type="upload">Delete This Folder</button>
           </p>
-        </section>
       </form>
     <% } else { %>
       <% for (let i = 0; i < folders.length; i++) { %>
