@@ -41,7 +41,7 @@
         </p>
       </form>
     <% } %>
-    <% if (folders.length === 0) { %>
+    <% if (folders.length === 0 && locals.id) { %>
       <form action="/folders/delete/<%= id %>" method="post">
           <p>
             <button type="upload">Delete This Folder</button>
@@ -80,5 +80,21 @@
         </p>
       </section>
     </form>
+    <div>
+      <h2>Files Here</h2>
+      <% if (files.length !== 0) { %>
+        <ul>
+        <% for (let i = 0; i < files.length; i++) { %>
+          <li>
+            <a href="/<%= files[i].prefix + '-' + files[i].originalName %>">
+              <span><%= files[i].originalName %></span>
+            </a>
+          </li>
+        <% } %>
+        </ul>
+      <% } else { %>
+        <p>No files uploaded yet!</p>
+      <% } %>
+    </div>
   </div>
 </html>

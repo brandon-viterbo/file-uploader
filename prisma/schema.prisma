@@ -28,6 +28,7 @@ model User {
   name    String   @unique   
   password String
   folders Folder[]
+  files   File[]
 }
 
 model Folder {
@@ -38,4 +39,16 @@ model Folder {
   parentId Int?
   parent  Folder?  @relation("ParentChildren", fields: [parentId], references: [id])
   children Folder[] @relation("ParentChildren")
+  files   File[]
+}
+
+model File {
+  id      Int      @id @default(autoincrement())
+  prefix  String   @unique
+  originalName String
+  folderId Int?
+  folder Folder?    @relation(fields: [folderId], references: [id])
+  url     String
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
 }
