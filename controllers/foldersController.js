@@ -64,7 +64,8 @@ exports.getFolders = async (req, res) => {
       title: "My Folders",
       user: req.user,
       folders: folders,
-      postUrl: req.originalUrl,
+      postUrl: "folders/root",
+      folderPath: "folders",
       files: files,
     });
   } else {
@@ -96,6 +97,7 @@ exports.getSubfolders = async (req, res) => {
       user: req.user,
       folders: folder.children,
       postUrl: req.originalUrl,
+      folderPath: req.originalUrl,
       files: files,
     });
   } else {
@@ -104,8 +106,15 @@ exports.getSubfolders = async (req, res) => {
 };
 
 exports.addFolder = async (req, res, next) => {
-  const isPathValid = await findSubfolder(req);
-  const parentId = parseInt(req.params.subfolders.at(-1));
+  const isPathValid = (req.params.subfolders[0] === "root")
+    ? true 
+    : await findSubfolder(req);
+  const parentId = (req.params.subfolders[0] === "root") 
+    ? null
+    : parseInt(req.params.subfolders.at(-1));
+  const returnUrl = (req.params.subfolders[0] === "root")
+    ? "/folders"
+    : `/folders/${req.params.subfolders.join("/")}`
   if (isPathValid) {
     await db.folder.create({
       data: {
@@ -116,7 +125,7 @@ exports.addFolder = async (req, res, next) => {
     });
   }
 
-  res.redirect(`/folders/${req.params.subfolders.join("/")}`);
+  res.redirect(returnUrl);
 };
 
 exports.deleteFolder = async (req, res, next) => {
