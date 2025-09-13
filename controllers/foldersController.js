@@ -120,13 +120,23 @@ exports.addFolder = async (req, res, next) => {
 };
 
 exports.deleteFolder = async (req, res, next) => {
-  await db.folder.delete({
+  const deleteFiles = db.file.deleteMany({
+    where: {
+      folderId: parseInt(req.params.folderId),
+      userId: parseInt(req.user.id),
+    },
+  });
+
+  const deleteFolder = db.folder.delete({
     where: {
       id: parseInt(req.params.folderId),
       children: { none: {} },
       userId: parseInt(req.user.id),
     },
   });
+
+  const transaction = await db.$transaction([deleteFiles, deleteFolder]);
+
   res.redirect("/");
 };
 
