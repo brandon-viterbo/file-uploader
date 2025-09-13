@@ -49,21 +49,23 @@ exports.getFolders = async (req, res) => {
     const { files } = await db.user.findUniqueOrThrow({
       relationLoadStrategy: "join",
       include: {
-        files: { where: {
-          folderId: null
-        }}
+        files: {
+          where: {
+            folderId: null,
+          },
+        },
       },
       where: {
-        id: req.user.id
-      }
-    })
+        id: req.user.id,
+      },
+    });
 
     res.render("folders", {
       title: "My Folders",
       user: req.user,
       folders: folders,
       postUrl: req.originalUrl,
-      files: files
+      files: files,
     });
   } else {
     res.redirect("/");
@@ -76,21 +78,25 @@ exports.getSubfolders = async (req, res) => {
     const { files } = await db.user.findUniqueOrThrow({
       relationLoadStrategy: "join",
       include: {
-        files: { where: {
-          folderId: parseInt(req.params.subfolders[req.params.subfolders.length - 1])
-        }}
+        files: {
+          where: {
+            folderId: parseInt(
+              req.params.subfolders[req.params.subfolders.length - 1],
+            ),
+          },
+        },
       },
       where: {
-        id: req.user.id
-      }
-    })
+        id: req.user.id,
+      },
+    });
     res.render("folders", {
       id: folder.id,
       title: folder.name,
       user: req.user,
       folders: folder.children,
       postUrl: req.originalUrl,
-      files: files
+      files: files,
     });
   } else {
     res.redirect("/folders");

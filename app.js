@@ -16,6 +16,7 @@ const signupRouter = require("./routes/signupRouter");
 const loginRouter = require("./routes/loginRouter");
 const uploadRouter = require("./routes/uploadRouter");
 const foldersRouter = require("./routes/foldersRouter");
+const fileRouter = require("./routes/fileRouter");
 
 const PORT = parseInt(process.env.PORT);
 const app = express();
@@ -83,6 +84,7 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+app.use("/file", fileRouter);
 app.use("/folders", foldersRouter);
 app.use("/upload", uploadRouter);
 app.use("/login", loginRouter);
